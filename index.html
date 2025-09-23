@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="script.js" type="text/javascript" defer></script>
+    <link href="styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="pokedex">
+        <div class="pokedex__left">
+            <div class="pokemon-list">
+                <!-- Lista de Pokémon se renderizará aquí dinámicamente -->
+            </div>
+        </div>
+        <div class="pokedex__right">
+            <form class="search-form" onsubmit="searchPokemon(event)">
+                <input class="search-form__input" type="text" name="pokemon" autocomplete="off" placeholder="Buscar Pokémon...">
+            </form>
+            <div class="poke-card">
+                <div class="poke-card__header">
+                    <div class="poke-card__name-id-exp"></div>
+                </div>
+                <div class="poke-card__screen">
+                    <div class="poke-card__img-container">
+                        <img class="poke-card__img" src="./pokeball.png" alt="Imagen de Pokémon"/>
+                    </div>
+                </div>
+                <div class="poke-card__details">
+                    <div class="poke-card__types"></div>
+                    <div class="poke-card__height-weight"></div>
+                    <div class="poke-card__stats"></div>
+                </div>
+                <div class="poke-card__abilities"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
