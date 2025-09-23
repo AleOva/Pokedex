@@ -13,14 +13,19 @@ Parte V – Responsividad y video explicativo: Aplicación adaptada a móviles y
 #Explicación:
 -Parte I – Estructura HTML y CSS BEM 
 Esta parte establece la base visual y estructural del proyecto. El uso de HTML5 crea una estructura organizada para la interfaz de la Pokédex, mientras que CSS3, siguiendo la metodología BEM (Block Element Modifier), asegura un estilo consistente y modular. BEM ayuda a nombrar las clases de manera clara (e.g., .pokedex__left, .poke-card__types) para evitar conflictos y facilitar el mantenimiento. El diseño visual, con un cuerpo rojo y pantalla azul, imita una Pokédex clásica, haciendo que la aplicación sea atractiva y fácil de navegar tanto en desktop como en móviles gracias a los estilos base.
+
 -Parte II – Consumo de la API 
 Esta parte permite que la aplicación obtenga datos en tiempo real de la PokeAPI usando la función fetch de JavaScript. Esto es crucial porque carga dinámicamente la lista de los 151 Pokémon originales, incluyendo sus nombres, imágenes, tipos, habilidades, estadísticas y más. Sin esta integración, la Pokédex estaría limitada a datos estáticos, pero gracias a la API, los datos son frescos y accesibles, proporcionando una experiencia interactiva y actualizada para el usuario.
+
 -Parte III – Renderizado dinámico 
 Esta parte hace que la Pokédex sea interactiva al renderizar la lista de Pokémon y sus detalles directamente en el DOM (Document Object Model) según las acciones del usuario. Por ejemplo, al hacer clic en un Pokémon de la lista, se muestra su información detallada (número, nombre, experiencia base, tipos, etc.) en la tarjeta. Esto permite una navegación fluida y personalizada, ya que los datos se actualizan en tiempo real sin necesidad de recargar la página, mejorando la experiencia del usuario.
+
 -Parte IV – Favoritos y persistencia 
 Esta parte añade funcionalidad práctica al permitir que los usuarios marquen Pokémon como favoritos con un ícono de estrella (★/☆) y guarden esas preferencias usando localStorage. Esto asegura que los favoritos persistan incluso después de cerrar el navegador o reiniciar el dispositivo. Es útil para usuarios que quieren recordar sus Pokémon preferidos, como una lista personalizada que se mantiene entre sesiones, añadiendo valor y personalización al proyecto.
+
 -Parte V – Responsividad y video explicativo 
 La responsividad asegura que la Pokédex se adapte a diferentes tamaños de pantalla, como teléfonos y tablets, usando media queries en CSS para reorganizar el diseño (e.g., apilar la lista y detalles en móviles). Esto hace que la aplicación sea accesible desde cualquier dispositivo, ampliando su alcance. El video explicativo demuestra todas las funcionalidades (maquetación, API, renderizado, favoritos, responsividad) en acción, sirviendo como una guía clara para usuarios o evaluadores, y cumpliendo con el requisito de documentación visual.
+
 #Pasos de como se realizó:
 1. Se crea una carpeta que se abrirá en visual code studio para hacer toda la codificación:
 <img width="1920" height="1008" alt="Captura de pantalla 2025-09-22 213028" src="https://github.com/user-attachments/assets/86f53506-d58c-44b8-881d-a5b07fed5649" />
