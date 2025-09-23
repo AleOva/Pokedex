@@ -30,8 +30,10 @@ La responsividad asegura que la Pokédex se adapte a diferentes tamaños de pant
 1. Se crea una carpeta que se abrirá en visual code studio para hacer toda la codificación:
 <img width="1920" height="1008" alt="Captura de pantalla 2025-09-22 213028" src="https://github.com/user-attachments/assets/86f53506-d58c-44b8-881d-a5b07fed5649" />
 
-2. Se creó el index.html pues es la parte en donde se apertura la página, también se creo el script.js y el styles.css que permite pulir las características de la página, esto se realizó en visual. 
+2. Se creó el index.html pues es la parte en donde se apertura la página, también se creo el script.js y el styles.css que permite pulir las características de la página, esto se realizó en visual. En esta también se crea un listado de todos los pokemon y sus status esto se visualiza dando F2 en el apartado de consola se despliega la lista.
 <img width="1920" height="1008" alt="Captura de pantalla 2025-09-22 213019" src="https://github.com/user-attachments/assets/23c5b15e-1775-4e4f-b9bc-d3c7e59ec195" />
+
+<img width="1920" height="1008" alt="imagen" src="https://github.com/user-attachments/assets/82dbc9bc-daf2-4a36-8280-3733ef7133ee" />
 
 3. Este es el resultado:
 <img width="755" height="700" alt="Captura de pantalla 2025-09-22 184306" src="https://github.com/user-attachments/assets/e85a4c7e-850c-49b8-b548-e4db0ae3e956" />
