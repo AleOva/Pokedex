@@ -10,6 +10,7 @@ const pokeStats = document.querySelector('.poke-card__stats');
 const pokemonList = document.querySelector('.pokemon-list');
 const pokeAbilities = document.querySelector('.poke-card__abilities');
 const pokeHeightWeight = document.querySelector('.poke-card__height-weight');
+const favoritesList = document.querySelector('.favorites-list');
 
 const typeColors = {
     electric: '#FFEA70',
@@ -34,39 +35,96 @@ const typeColors = {
 const searchPokemon = event => {
     event.preventDefault();
     const { value } = event.target.pokemon;
+    if (!value.trim()) {
+        alert('Por favor, ingrese un nombre o ID de Pokémon');
+        return;
+    }
     fetch(`https://pokeapi.co/api/v2/pokemon/${value.toLowerCase()}`)
         .then(data => data.json())
         .then(response => renderPokemonData(response))
         .catch(err => renderNotFound());
 };
 
-const fetchPokemonList = async () => {
+const fetchPokemonList = async (limit = 20) => {
     try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
         const data = await response.json();
         pokemonListData = data.results;
         renderPokemonList();
+        renderFavorites();
         console.log('Lista de Pokémon cargada:', pokemonListData);
     } catch (err) {
         console.error('Error al cargar la lista de Pokémon:', err);
     }
 };
 
-const renderPokemonList = () => {
+const renderPokemonList = async () => {
     pokemonList.innerHTML = '';
-    pokemonListData.forEach(pokemon => {
+    const promises = pokemonListData.map(pokemon => fetch(pokemon.url).then(res => res.json()));
+    const pokemons = await Promise.all(promises);
+    pokemons.forEach((data, index) => {
+        const pokemon = pokemonListData[index];
         const pokemonItem = document.createElement('div');
         pokemonItem.className = 'pokemon-list__item';
         const infoContainer = document.createElement('div');
         infoContainer.className = 'pokemon-list__info';
+        const icon = document.createElement('img');
+        icon.className = 'pokemon-list__icon';
+        icon.src = data.sprites.other["official-artwork"].front_default || './pokeball.png';
+        const number = document.createElement('span');
+        number.className = 'pokemon-list__number';
+        number.textContent = `#${data.id}`;
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = pokemon.name;
+        infoContainer.appendChild(icon);
+        infoContainer.appendChild(number);
+        infoContainer.appendChild(nameSpan);
+        pokemonItem.appendChild(infoContainer);
+        const favoriteIcon = document.createElement('span');
+        favoriteIcon.className = 'pokemon-list__favorite';
+        favoriteIcon.textContent = favorites.includes(data.id) ? '★' : '☆';
+        favoriteIcon.setAttribute('role', 'button');
+        favoriteIcon.setAttribute('aria-label', `Marcar ${pokemon.name} como favorito`);
+        favoriteIcon.setAttribute('tabindex', '0');
+        favoriteIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(data.id);
+            renderPokemonList();
+            renderFavorites();
+        });
+        favoriteIcon.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.stopPropagation();
+                toggleFavorite(data.id);
+                renderPokemonList();
+                renderFavorites();
+            }
+        });
+        pokemonItem.appendChild(favoriteIcon);
+        pokemonItem.addEventListener('click', () => renderPokemonData(data));
+        pokemonList.appendChild(pokemonItem);
+    });
+};
+
+const renderFavorites = () => {
+    if (!favoritesList) return;
+    favoritesList.innerHTML = '';
+    const favoritePokemons = pokemonListData.filter(pokemon => 
+        favorites.includes(getPokemonIdFromUrl(pokemon.url))
+    );
+    favoritePokemons.forEach(pokemon => {
+        const pokemonItem = document.createElement('div');
+        pokemonItem.className = 'favorites-list__item';
         fetch(pokemon.url)
             .then(res => res.json())
             .then(data => {
+                const infoContainer = document.createElement('div');
+                infoContainer.className = 'favorites-list__info';
                 const icon = document.createElement('img');
-                icon.className = 'pokemon-list__icon';
-                icon.src = data.sprites.front_default || './pokeball.png';
+                icon.className = 'favorites-list__icon';
+                icon.src = data.sprites.other["official-artwork"].front_default || './pokeball.png';
                 const number = document.createElement('span');
-                number.className = 'pokemon-list__number';
+                number.className = 'favorites-list__number';
                 number.textContent = `#${data.id}`;
                 const nameSpan = document.createElement('span');
                 nameSpan.textContent = pokemon.name;
@@ -74,29 +132,16 @@ const renderPokemonList = () => {
                 infoContainer.appendChild(number);
                 infoContainer.appendChild(nameSpan);
                 pokemonItem.appendChild(infoContainer);
+                pokemonItem.addEventListener('click', () => renderPokemonData(data));
             });
-        const favoriteIcon = document.createElement('span');
-        favoriteIcon.className = 'pokemon-list__favorite';
-        favoriteIcon.textContent = favorites.includes(getPokemonIdFromUrl(pokemon.url)) ? '★' : '☆';
-        favoriteIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleFavorite(getPokemonIdFromUrl(pokemon.url));
-            renderPokemonList();
-        });
-        pokemonItem.appendChild(favoriteIcon);
-        pokemonItem.addEventListener('click', () => {
-            fetch(pokemon.url)
-                .then(res => res.json())
-                .then(data => renderPokemonData(data));
-        });
-        pokemonList.appendChild(pokemonItem);
+        favoritesList.appendChild(pokemonItem);
     });
 };
 
 const renderPokemonData = data => {
-    const sprite = data.sprites.front_default;
+    const sprite = data.sprites.other["official-artwork"].front_default || './pokeball.png';
     const { stats, types, abilities, height, weight, base_experience } = data;
-    pokeImg.setAttribute('src', sprite || './pokeball.png');
+    pokeImg.setAttribute('src', sprite);
     pokeNameIdExp.innerHTML = `
         <div class="poke-card__id">${data.id}</div>
         <div class="poke-card__name">${data.name}</div>
@@ -163,6 +208,7 @@ const renderNotFound = () => {
     pokeNameIdExp.innerHTML = 'No encontrado';
     pokeImg.setAttribute('src', './pokeball.png');
     pokeImg.style.background = '#fff';
+    pokeImgContainer.style.background = '#fff';
     pokeTypes.innerHTML = '';
     pokeStats.innerHTML = '';
     pokeHeightWeight.innerHTML = '';
@@ -183,7 +229,11 @@ const toggleFavorite = (id) => {
     }
     localStorage.setItem('favorites', JSON.stringify(favorites));
     renderPokemonList();
+    renderFavorites();
 };
 
-// Llamada inicial al cargar la página
-window.addEventListener('load', fetchPokemonList);
+// Asociar botón de carga
+document.querySelector('.pokedex__load-button').addEventListener('click', () => fetchPokemonList(20));
+
+// Carga inicial automática
+window.addEventListener('load', () => fetchPokemonList(20));
