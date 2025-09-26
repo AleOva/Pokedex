@@ -12,13 +12,16 @@
 <body>
     <div class="pokedex">
         <div class="pokedex__left">
-            <div class="pokemon-list">
-                <!-- Lista de Pokémon se renderizará aquí dinámicamente -->
+            <button class="pokedex__load-button">Cargar Pokémon iniciales</button>
+            <div class="pokemon-list"></div>
+            <div class="pokedex__favorites">
+                <h2 class="pokedex__favorites-title">Mis Favoritos</h2>
+                <div class="favorites-list"></div>
             </div>
         </div>
         <div class="pokedex__right">
             <form class="search-form" onsubmit="searchPokemon(event)">
-                <input class="search-form__input" type="text" name="pokemon" autocomplete="off" placeholder="Buscar Pokémon...">
+                <input class="search-form__input" type="text" name="pokemon" autocomplete="off" placeholder="Buscar Pokémon..." aria-label="Buscar Pokémon por nombre o ID">
             </form>
             <div class="poke-card">
                 <div class="poke-card__header">
