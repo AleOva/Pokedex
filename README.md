@@ -36,7 +36,9 @@ La responsividad asegura que la Pokédex se adapte a diferentes tamaños de pant
 <img width="1920" height="1008" alt="imagen" src="https://github.com/user-attachments/assets/82dbc9bc-daf2-4a36-8280-3733ef7133ee" />
 
 3. Este es el resultado:
-<img width="755" height="700" alt="Captura de pantalla 2025-09-22 184306" src="https://github.com/user-attachments/assets/e85a4c7e-850c-49b8-b548-e4db0ae3e956" />
+<img width="854" height="685" alt="imagen" src="https://github.com/user-attachments/assets/dbc5e2b1-7645-4373-b5fa-c20c29eab691" />
+<img width="858" height="832" alt="imagen" src="https://github.com/user-attachments/assets/b31295e0-0342-4c29-b95e-68248f1eb5fd" />
+
 
 4.Luego de tener este resultado y cubrir con casi todos los requisitos debe de poderse visualizar en el móvil, por lo que se requiere habilitar un puerto en phyton que será el 8000 en cmd desde la carpeta donde está el proyecto.
 <img width="960" height="1008" alt="Captura de pantalla 2025-09-22 211344" src="https://github.com/user-attachments/assets/4df15b4e-be71-4cfc-b7c1-8738fba511b8" />
